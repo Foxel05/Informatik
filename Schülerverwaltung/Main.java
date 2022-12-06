@@ -1,20 +1,15 @@
 import java.util.*;
 
 public class Main {
-    static Scanner mS = new Scanner(System.in);
     static List<Schueler> meineListe = new List<Schueler>();
+    static Scanner mS = new Scanner(System.in);
+    static MergeSort mergeSort = new MergeSort();
+    static ListHandler LH = new ListHandler();
+    static SchuelerCreator SC = new SchuelerCreator(meineListe, 100);
 
     public static void main(String[] args) {
 
-        meineListe.append(new Schueler("Simon", "Kebekus", 17, 'm', "11", 2, 23, 226));
-        meineListe.append(new Schueler("Tim", "Rix", 17, 'm', "11", 2, 3, 16));
-        meineListe.append(new Schueler("Emil", "Kirk", 17, 'm', "11", 2, 3, 14));
-        meineListe.append(new Schueler("Nico", "Goehr", 16, 'm', "11", 2, 3, 12));
-        meineListe.append(new Schueler("Lukas", "Rutenbeck", 15, 'm', "11", 2, 3, 13));
-        meineListe.append(new Schueler("Magnus", "Temeplmann", 17, 'm', "11", 2, 3, 27));
-
         while (true) {
-            Scanner mS = new Scanner(System.in);
             System.out.println();
             System.out.println("------------------------------------");
             System.out.println("Willkommen zu der Schuelerverwaltung");
@@ -45,7 +40,7 @@ public class Main {
             else if (eingabe == 5)
                 findObject();
             else if (eingabe == 6)
-                collectResults();
+                collectResults(meineListe);
             else if (eingabe == 7)
                 collectSortedList();
             else if (eingabe == 8)
@@ -98,7 +93,7 @@ public class Main {
         System.out.println("Alle Schüler anzeigen");
         System.out.println("------------------------------------");
 
-        listStudentfromList(tempList);
+        LH.listStudentfromList(tempList);
 
     }
 
@@ -162,21 +157,23 @@ public class Main {
         }
     }
 
-    public static void collectResults() {
+    public static void collectResults(List<Schueler> tempList) {
         System.out.println("------------------------------------");
         System.out.println("Schüler Werte angeben:");
         System.out.println("------------------------------------");
         Schueler tempStudent = null;
-        collectResults_selectStudent(tempStudent);
+        collectResults_selectStudent(tempList, tempStudent);
 
     }
 
-    public static void collectResults_selectStudent(Schueler tempStudent) {
-        tempStudent = selectStudent(meineListe);
-        collectResults_selectSport(tempStudent);
+    public static void collectResults_selectStudent(List<Schueler> tempList, Schueler tempStudent) {
+        System.out.println("Schüler von Liste auswählen: ");
+        LH.listStudentfromList(tempList);
+        int auswahl = mS.nextInt();
+        collectResults_selectSport(tempList, LH.cloneStudent(tempList, auswahl));
     }
 
-    public static void collectResults_selectSport(Schueler tempStudent) {
+    public static void collectResults_selectSport(List<Schueler> tempList, Schueler tempStudent) {
         // Sportart auswählen
         System.out.println("Werte in Sportart angeben:");
         System.out.println("---------------------------");
@@ -205,10 +202,10 @@ public class Main {
             tempStudent.setLauf(angabe);
         }
 
-        collectResults_Save(tempStudent);
+        collectResults_Save(tempList, tempStudent);
     }
 
-    public static void collectResults_Save(Schueler tempStudent) {
+    public static void collectResults_Save(List<Schueler> tempList, Schueler tempStudent) {
         System.out.println();
         System.out.println(
                 "Anderen Schülerauswählen [s], andere Sportart wählen [w], beenden (und speichern) [e], beenden (nicht speichern) [f]");
@@ -217,14 +214,14 @@ public class Main {
 
         if (tempchar != 's' && tempchar != 'w' && tempchar != 'e' && tempchar != 'f') {
             System.out.println("Falsches Zeichen!");
-            collectResults_Save(tempStudent);
+            collectResults_Save(tempList, tempStudent);
         } else if (tempchar == 's') {
-            selectStudentend(meineListe, tempStudent);
-            collectResults_selectStudent(tempStudent);
+            LH.exchangeStudentData(meineListe, tempStudent);
+            collectResults_selectStudent(tempList, tempStudent);
         } else if (tempchar == 'w') {
-            collectResults_selectSport(tempStudent);
+            collectResults_selectSport(tempList, tempStudent);
         } else if (tempchar == 'e') {
-            selectStudentend(meineListe, tempStudent);
+            LH.exchangeStudentData(meineListe, tempStudent);
         }
     }
 
@@ -238,200 +235,6 @@ public class Main {
         System.out.println("Sortieren aufsteigend [up] oder absteigend [down]");
         String tempdirection = mS.next();
         System.out.println("Neue Sortierung der Schüler: ");
-        listStudentfromList(mergeSort(meineListe, tempterm, tempdirection));
-    }
-
-    // Nur noch unwichtiges!
-
-    // Weitere Dienste, die einiges vereinfachen!!!
-    public static List<Schueler> mergeSort(List<Schueler> givenList, String term, String direction) {
-        if (givenList.getLength() == 1)
-            return givenList; // Wenn die Liste nur einen Schüler beinhaltet, zurück (da man schlecht nur eine
-                              // Sache sortieren kann)
-
-        givenList.toFirst();
-
-        int i = 0;
-        List<Schueler> ersteListe = new List<Schueler>();
-        List<Schueler> zweiteListe = new List<Schueler>();
-
-        while (i < (givenList.getLength() / 2)) {
-            i++;
-            ersteListe.append(givenList.getContent());
-            givenList.next();
-        }
-        while (givenList.hasAccess()) {
-            zweiteListe.append(givenList.getContent());
-            givenList.next();
-        }
-
-        if (ersteListe.getLength() != 1) {
-            ersteListe = mergeSort(ersteListe, term, direction);
-        }
-        if (zweiteListe.getLength() != 1) {
-            zweiteListe = mergeSort(zweiteListe, term, direction);
-        }
-
-        ersteListe.toFirst();
-        zweiteListe.toFirst();
-
-        List<Schueler> newList = new List<Schueler>();
-        List<Schueler> emptyList = new List<Schueler>();
-
-        if (direction.equals("up")) {
-            if (term.equals("Sprung")) {
-                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
-
-                    if (ersteListe.getContent().getSprung() > zweiteListe.getContent().getSprung()) {
-                        newList.append(zweiteListe.getContent());
-                        zweiteListe.remove();
-                    } else if (ersteListe.getContent().getSprung() < zweiteListe.getContent().getSprung()) {
-                        newList.append(ersteListe.getContent());
-                        ersteListe.remove();
-                    }
-                    if (ersteListe.isEmpty()) {
-                        newList.concat(zweiteListe);
-                        ersteListe = emptyList;
-                    } else if (zweiteListe.isEmpty()) {
-                        newList.concat(ersteListe);
-                        zweiteListe = emptyList;
-                    }
-                }
-            } else if (term.equals("Wurf")) {
-                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
-
-                    if (ersteListe.getContent().getWurf() > zweiteListe.getContent().getWurf()) {
-                        newList.append(zweiteListe.getContent());
-                        zweiteListe.remove();
-                    } else if (ersteListe.getContent().getWurf() < zweiteListe.getContent().getWurf()) {
-                        newList.append(ersteListe.getContent());
-                        ersteListe.remove();
-                    }
-                    if (ersteListe.isEmpty()) {
-                        newList.concat(zweiteListe);
-                        ersteListe = emptyList;
-                    } else if (zweiteListe.isEmpty()) {
-                        newList.concat(ersteListe);
-                        zweiteListe = emptyList;
-                    }
-                }
-            } else if (term.equals("Lauf")) {
-                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
-
-                    if (ersteListe.getContent().getLauf() > zweiteListe.getContent().getLauf()) {
-                        newList.append(zweiteListe.getContent());
-                        zweiteListe.remove();
-                    } else if (ersteListe.getContent().getLauf() < zweiteListe.getContent().getLauf()) {
-                        newList.append(ersteListe.getContent());
-                        ersteListe.remove();
-                    }
-                    if (ersteListe.isEmpty()) {
-                        newList.concat(zweiteListe);
-                        ersteListe = emptyList;
-                    } else if (zweiteListe.isEmpty()) {
-                        newList.concat(ersteListe);
-                        zweiteListe = emptyList;
-                    }
-                }
-            }
-        } else if (direction.equals("down")) {
-            if (term.equals("Sprung")) {
-                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
-
-                    if (ersteListe.getContent().getSprung() < zweiteListe.getContent().getSprung()) {
-                        newList.append(zweiteListe.getContent());
-                        zweiteListe.remove();
-                    } else if (ersteListe.getContent().getSprung() > zweiteListe.getContent().getSprung()) {
-                        newList.append(ersteListe.getContent());
-                        ersteListe.remove();
-                    }
-                    if (ersteListe.isEmpty()) {
-                        newList.concat(zweiteListe);
-                        ersteListe = emptyList;
-                    } else if (zweiteListe.isEmpty()) {
-                        newList.concat(ersteListe);
-                        zweiteListe = emptyList;
-                    }
-                }
-            } else if (term.equals("Wurf")) {
-                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
-
-                    if (ersteListe.getContent().getWurf() < zweiteListe.getContent().getWurf()) {
-                        newList.append(zweiteListe.getContent());
-                        zweiteListe.remove();
-                    } else if (ersteListe.getContent().getWurf() > zweiteListe.getContent().getWurf()) {
-                        newList.append(ersteListe.getContent());
-                        ersteListe.remove();
-                    }
-                    if (ersteListe.isEmpty()) {
-                        newList.concat(zweiteListe);
-                        ersteListe = emptyList;
-                    } else if (zweiteListe.isEmpty()) {
-                        newList.concat(ersteListe);
-                        zweiteListe = emptyList;
-                    }
-                }
-            } else if (term.equals("Lauf")) {
-                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
-
-                    if (ersteListe.getContent().getLauf() < zweiteListe.getContent().getLauf()) {
-                        newList.append(zweiteListe.getContent());
-                        zweiteListe.remove();
-                    } else if (ersteListe.getContent().getLauf() > zweiteListe.getContent().getLauf()) {
-                        newList.append(ersteListe.getContent());
-                        ersteListe.remove();
-                    }
-                    if (ersteListe.isEmpty()) {
-                        newList.concat(zweiteListe);
-                        ersteListe = emptyList;
-                    } else if (zweiteListe.isEmpty()) {
-                        newList.concat(ersteListe);
-                        zweiteListe = emptyList;
-                    }
-                }
-            }
-        }
-        return newList;
-    }
-
-    public static void selectStudentend(List<Schueler> tempList, Schueler x) {
-        tempList.toFirst();
-        while (tempList.getContent() != x) {
-            tempList.next();
-        }
-        tempList.setContent(x);
-    }
-
-    public static Schueler selectStudent(List<Schueler> tempList) {
-        System.out.println("Schüler von Liste auswählen: ");
-        listStudentfromList(tempList);
-        int auswahl = mS.nextInt();
-        return cloneStudent(auswahl);
-    }
-
-    public static void listStudentfromList(List<Schueler> tempList) {
-        tempList.toFirst();
-        int i = 0;
-
-        while (tempList.hasAccess()) {
-            i++;
-            System.out.println(i + ": [Name]: " + tempList.getContent().vorname() + " " + tempList.getContent().name());
-            tempList.next();
-        }
-    }
-
-    public static Schueler cloneStudent(int auswahl) {
-        meineListe.toFirst();
-        System.out.println("Schüler (" + auswahl + ") ausgewählt!");
-        int i = 0;
-
-        while (i == auswahl) {
-            i++;
-            meineListe.next();
-        }
-
-        Schueler tempStudent = meineListe.getContent();
-
-        return tempStudent;
+        LH.listStudentfromList(mergeSort.mergeSort(meineListe, tempterm, tempdirection));
     }
 }

@@ -1,0 +1,193 @@
+public class MergeSort {
+
+    public MergeSort() {
+
+    }
+
+    public List<Schueler> mergeSort(List<Schueler> givenList, String term, String direction) {
+        if (givenList.getLength() == 1)
+            return givenList; // Wenn die Liste nur einen Schüler beinhaltet, zurück (da man schlecht nur eine
+                              // Sache sortieren kann)
+
+        givenList.toFirst();
+
+        int i = 0;
+        List<Schueler> ersteListe = new List<Schueler>();
+        List<Schueler> zweiteListe = new List<Schueler>();
+
+        while (i < (givenList.getLength() / 2)) {
+            i++;
+            ersteListe.append(givenList.getContent());
+            givenList.next();
+        }
+        while (givenList.hasAccess()) {
+            zweiteListe.append(givenList.getContent());
+            givenList.next();
+        }
+
+        if (ersteListe.getLength() != 1) {
+            ersteListe = mergeSort(ersteListe, term, direction);
+        }
+        if (zweiteListe.getLength() != 1) {
+            zweiteListe = mergeSort(zweiteListe, term, direction);
+        }
+
+        ersteListe.toFirst();
+        zweiteListe.toFirst();
+
+        List<Schueler> newList = new List<Schueler>();
+        List<Schueler> emptyList = new List<Schueler>();
+
+        if (direction.equals("up")) {
+            if (term.equals("Sprung")) {
+                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
+
+                    if (ersteListe.getContent().getSprung() > zweiteListe.getContent().getSprung()) {
+                        newList.append(zweiteListe.getContent());
+                        zweiteListe.remove();
+                    } else if (ersteListe.getContent().getSprung() < zweiteListe.getContent().getSprung()) {
+                        newList.append(ersteListe.getContent());
+                        ersteListe.remove();
+                    }
+                    if (ersteListe.isEmpty()) {
+                        newList.concat(zweiteListe);
+                        ersteListe = emptyList;
+                    } else if (zweiteListe.isEmpty()) {
+                        newList.concat(ersteListe);
+                        zweiteListe = emptyList;
+                    }
+                }
+            } else if (term.equals("Wurf")) {
+                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
+
+                    if (ersteListe.getContent().getWurf() > zweiteListe.getContent().getWurf()) {
+                        newList.append(zweiteListe.getContent());
+                        zweiteListe.remove();
+                    } else if (ersteListe.getContent().getWurf() < zweiteListe.getContent().getWurf()) {
+                        newList.append(ersteListe.getContent());
+                        ersteListe.remove();
+                    }
+                    if (ersteListe.isEmpty()) {
+                        newList.concat(zweiteListe);
+                        ersteListe = emptyList;
+                    } else if (zweiteListe.isEmpty()) {
+                        newList.concat(ersteListe);
+                        zweiteListe = emptyList;
+                    }
+                }
+            } else if (term.equals("Lauf")) {
+                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
+
+                    if (ersteListe.getContent().getLauf() > zweiteListe.getContent().getLauf()) {
+                        newList.append(zweiteListe.getContent());
+                        zweiteListe.remove();
+                    } else if (ersteListe.getContent().getLauf() < zweiteListe.getContent().getLauf()) {
+                        newList.append(ersteListe.getContent());
+                        ersteListe.remove();
+                    }
+                    if (ersteListe.isEmpty()) {
+                        newList.concat(zweiteListe);
+                        ersteListe = emptyList;
+                    } else if (zweiteListe.isEmpty()) {
+                        newList.concat(ersteListe);
+                        zweiteListe = emptyList;
+                    }
+                }
+            } else if (term.equals("Alter")) {
+                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
+
+                    if (ersteListe.getContent().getAlter() > zweiteListe.getContent().getAlter()) {
+                        newList.append(zweiteListe.getContent());
+                        zweiteListe.remove();
+                    } else if (ersteListe.getContent().getAlter() < zweiteListe.getContent().getAlter()) {
+                        newList.append(ersteListe.getContent());
+                        ersteListe.remove();
+                    }
+                    if (ersteListe.isEmpty()) {
+                        newList.concat(zweiteListe);
+                        ersteListe = emptyList;
+                    } else if (zweiteListe.isEmpty()) {
+                        newList.concat(ersteListe);
+                        zweiteListe = emptyList;
+                    }
+                }
+            }
+        } else if (direction.equals("down")) {
+            if (term.equals("Sprung")) {
+                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
+
+                    if (ersteListe.getContent().getSprung() < zweiteListe.getContent().getSprung()) {
+                        newList.append(zweiteListe.getContent());
+                        zweiteListe.remove();
+                    } else if (ersteListe.getContent().getSprung() > zweiteListe.getContent().getSprung()) {
+                        newList.append(ersteListe.getContent());
+                        ersteListe.remove();
+                    }
+                    if (ersteListe.isEmpty()) {
+                        newList.concat(zweiteListe);
+                        ersteListe = emptyList;
+                    } else if (zweiteListe.isEmpty()) {
+                        newList.concat(ersteListe);
+                        zweiteListe = emptyList;
+                    }
+                }
+            } else if (term.equals("Wurf")) {
+                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
+
+                    if (ersteListe.getContent().getWurf() < zweiteListe.getContent().getWurf()) {
+                        newList.append(zweiteListe.getContent());
+                        zweiteListe.remove();
+                    } else if (ersteListe.getContent().getWurf() > zweiteListe.getContent().getWurf()) {
+                        newList.append(ersteListe.getContent());
+                        ersteListe.remove();
+                    }
+                    if (ersteListe.isEmpty()) {
+                        newList.concat(zweiteListe);
+                        ersteListe = emptyList;
+                    } else if (zweiteListe.isEmpty()) {
+                        newList.concat(ersteListe);
+                        zweiteListe = emptyList;
+                    }
+                }
+            } else if (term.equals("Lauf")) {
+                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
+
+                    if (ersteListe.getContent().getLauf() < zweiteListe.getContent().getLauf()) {
+                        newList.append(zweiteListe.getContent());
+                        zweiteListe.remove();
+                    } else if (ersteListe.getContent().getLauf() > zweiteListe.getContent().getLauf()) {
+                        newList.append(ersteListe.getContent());
+                        ersteListe.remove();
+                    }
+                    if (ersteListe.isEmpty()) {
+                        newList.concat(zweiteListe);
+                        ersteListe = emptyList;
+                    } else if (zweiteListe.isEmpty()) {
+                        newList.concat(ersteListe);
+                        zweiteListe = emptyList;
+                    }
+                }
+            } else if (term.equals("Alter")) {
+                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
+
+                    if (ersteListe.getContent().getAlter() < zweiteListe.getContent().getAlter()) {
+                        newList.append(zweiteListe.getContent());
+                        zweiteListe.remove();
+                    } else if (ersteListe.getContent().getAlter() > zweiteListe.getContent().getAlter()) {
+                        newList.append(ersteListe.getContent());
+                        ersteListe.remove();
+                    }
+                    if (ersteListe.isEmpty()) {
+                        newList.concat(zweiteListe);
+                        ersteListe = emptyList;
+                    } else if (zweiteListe.isEmpty()) {
+                        newList.concat(ersteListe);
+                        zweiteListe = emptyList;
+                    }
+                }
+            }
+        }
+        return newList;
+    }
+
+}
