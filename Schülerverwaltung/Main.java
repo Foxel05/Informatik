@@ -7,6 +7,12 @@ public class Main
     public static void main(String[] args)
     {
 
+        meineListe.append(new Schueler("Simon", "Kebekus", 17, 'm', "11", 2,23, 226));
+        meineListe.append(new Schueler("Tim", "Rix", 17, 'm', "11", 2, 3, 16));
+        meineListe.append(new Schueler("Emil", "Kirk", 17, 'm', "11", 2, 3,14));
+        meineListe.append(new Schueler("Nico", "Goehr", 16, 'm', "11", 2, 3, 12));
+        meineListe.append(new Schueler("Lukas", "Rutenbeck", 15, 'm', "11", 2, 3, 13));
+        meineListe.append(new Schueler("Magnus", "Temeplmann", 17, 'm', "11", 2, 3, 27));
 
         while(true)
         {
@@ -37,7 +43,7 @@ public class Main
             else if (eingabe == 4) removeObject();
             else if (eingabe == 5) findObject();
             else if (eingabe == 6) collectResults();
-            else if (eingabe == 7) mergeSort();
+            else if (eingabe == 7) meineListe = mergeSort(meineListe);
             else if (eingabe == 8) System.exit(0);
         } // Ende der while Schleife
     } // Ende der main-Methode
@@ -125,7 +131,7 @@ public class Main
 
         while (meineListe.hasAccess()){
             if (meineListe.getContent().vorname().equals(input)) {
-                System.out.println("Schüler (" + i + ") gefunden mit diesem Vornamen")
+                System.out.println("Schüler (" + i + ") gefunden mit diesem Vornamen");
                 System.out.println("[Vorname]: " + meineListe.getContent().vorname());
                 System.out.println("[Name]: " + meineListe.getContent().name());
                 System.out.println("[Alter]: " + meineListe.getContent().getAlter());
@@ -166,74 +172,74 @@ public class Main
         System.out.println("------------------------------------");
         System.out.println("Schüler Werte angeben:");
         System.out.println("------------------------------------");
-        Schueler tempStudent;
-        collectResults_selectStudent();
+        Schueler tempStudent = null;
+        collectResults_selectStudent(tempStudent);
 
-        public void collectResults_selectStudent() {
-            tempStudent = selectStudent(auswahl);
-            collectResults_selectSport();
-        }
+    }
+
+    public static void collectResults_selectStudent(Schueler tempStudent) {
+        tempStudent = selectStudent();
+        collectResults_selectSport(tempStudent);
+    }
         
-        public void collectResults_selectSport(){
-            //Sportart auswählen
-            System.out.println("Werte in Sportart angeben:");
-            System.out.println("---------------------------");
-            System.out.print("1. Sprung");
-            System.out.print("2. Wurf");
-            System.out.print("3. Lauf");
-            System.out.println();
+    public static void collectResults_selectSport(Schueler tempStudent){
+        //Sportart auswählen
+        System.out.println("Werte in Sportart angeben:");
+        System.out.println("---------------------------");
+        System.out.print("1. Sprung");
+        System.out.print("2. Wurf");
+        System.out.print("3. Lauf");
+        System.out.println();
 
-            auswahl = mS.nextInt();
+        int auswahl = mS.nextInt();
 
-            double angabe;
-            if (auswahl == 1){
-                //Sprung
-                System.out.println("Sprung an geben:");
-                angabe = mS.nextDouble();
-                tempStudent.setSprung(angabe);
-            }
-            else if (auswahl == 2){
-                //Wurf
-                System.out.println("Wurf an geben:");
-                angabe = mS.nextDouble();
-                tempStudent.setWurf(angabe);
-            }
-            else if (auswahl == 3 ){
-                //Lauf
-                System.out.println("Lauf an geben:");
-                angabe = mS.nextDouble();
-                tempStudent.setLauf(angabe);
-            }
-
-            collectResults_Save();
+        double angabe;
+        if (auswahl == 1){
+            //Sprung
+            System.out.println("Sprung an geben:");
+            angabe = mS.nextDouble();
+            tempStudent.setSprung(angabe);
+        }
+        else if (auswahl == 2){
+            //Wurf
+            System.out.println("Wurf an geben:");
+            angabe = mS.nextDouble();
+            tempStudent.setWurf(angabe);
+        }
+        else if (auswahl == 3 ){
+            //Lauf
+            System.out.println("Lauf an geben:");
+            angabe = mS.nextDouble();
+            tempStudent.setLauf(angabe);
         }
 
-        public void collectResults_Save(){
-            System.out.println();
-            System.out.println("Anderen Schülerauswählen [s], andere Sportart wählen [w], beenden (und speichern) [e], beenden (nicht speichern) [f]");
-            char tempchar = mS.nextChar();
+        collectResults_Save(tempStudent);
+    }
 
-            if (tempchar != "s" || tempchar != "w" || tempchar != "e" || tempchar != "f"){
-                System.out.println("Falsches Zeichen!");
-                collectResults_Save();
-            }
+    public static void collectResults_Save(Schueler tempStudent){
+        System.out.println();
+        System.out.println("Anderen Schülerauswählen [s], andere Sportart wählen [w], beenden (und speichern) [e], beenden (nicht speichern) [f]");
+        char tempchar = mS.next().charAt(0);
+        System.out.println(tempchar);
 
-            if (tempchar == "s") {
-                selectStudentend(tempStudent);
-                collectResults_selectStudent();
-            }
-            else if (tempchar == "w") {
-                collectResults_selectSport();
-            }
-            else if (tempchar == "e") {
-                selectStudentend(tempStudent);
-            }
+        if (tempchar != 's' && tempchar != 'w' && tempchar != 'e' && tempchar != 'f'){
+            System.out.println("Falsches Zeichen!");
+            collectResults_Save(tempStudent);
         }
-        
+        else if (tempchar == 's') {
+            selectStudentend(tempStudent);
+            collectResults_selectStudent(tempStudent);
+        }
+        else if (tempchar == 'w') {
+            collectResults_selectSport(tempStudent);
+        }
+        else if (tempchar == 'e') {
+            selectStudentend(tempStudent);
+        }
     }
 
     public static List<Schueler> mergeSort(List<Schueler> givenList){
-        if (givenList.getLength() == 1) return; //Wenn die Liste nur einen Shüler beinhaltet, zurück (da man schlecht nur eine Sache sortieren kann)
+        if (givenList.getLength() == 1) return givenList; //Wenn die Liste nur einen Shüler beinhaltet, zurück (da man schlecht nur eine Sache sortieren kann)
 
         givenList.toFirst();
         
@@ -241,7 +247,7 @@ public class Main
         List<Schueler> ersteListe = new List<Schueler>();
         List<Schueler> zweiteListe = new List<Schueler>();
 
-        while (i < (givenList.getLength() / 2)){
+        while (i < ((givenList.getLength() + 1) / 2)){
             i++;
             ersteListe.append(givenList.getContent());
             givenList.next();
@@ -332,4 +338,3 @@ public class Main
         return tempStudent;
     }
 }
-	
