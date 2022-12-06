@@ -232,7 +232,7 @@ public class Main
         
     }
 
-    public static void mergeSort(List<Schueler> givenList){
+    public static List<Schueler> mergeSort(List<Schueler> givenList){
         if (givenList.getLength() == 1) return; //Wenn die Liste nur einen Shüler beinhaltet, zurück (da man schlecht nur eine Sache sortieren kann)
 
         givenList.toFirst();
@@ -288,7 +288,7 @@ public class Main
             } 
         }
         return newList;
-        
+
     }
 //weitere Dienste, die einiges vereinfachen!!!
     public static void selectStudentend(Schueler x){
