@@ -47,7 +47,7 @@ public class Main {
             else if (eingabe == 6)
                 collectResults();
             else if (eingabe == 7)
-                meineListe = mergeSort(meineListe);
+                meineListe = mergeSort(meineListe, "Sprung", "down");
             else if (eingabe == 8)
                 System.exit(0);
         } // Ende der while Schleife
@@ -180,9 +180,9 @@ public class Main {
         // Sportart auswählen
         System.out.println("Werte in Sportart angeben:");
         System.out.println("---------------------------");
-        System.out.print("1. Sprung");
-        System.out.print("2. Wurf");
-        System.out.print("3. Lauf");
+        System.out.println("1. Sprung");
+        System.out.println("2. Wurf");
+        System.out.println("3. Lauf");
         System.out.println();
 
         int auswahl = mS.nextInt();
@@ -228,10 +228,10 @@ public class Main {
         }
     }
 
-    public static List<Schueler> mergeSort(List<Schueler> givenList) {
+    public static List<Schueler> mergeSort(List<Schueler> givenList, String term, String direction) {
         if (givenList.getLength() == 1)
-            return givenList; // Wenn die Liste nur einen Shüler beinhaltet, zurück (da man schlecht nur eine
-        // Sache sortieren kann)
+            return givenList; // Wenn die Liste nur einen Schüler beinhaltet, zurück (da man schlecht nur eine
+                              // Sache sortieren kann)
 
         givenList.toFirst();
 
@@ -249,12 +249,11 @@ public class Main {
             givenList.next();
         }
 
-        logger(ersteListe, zweiteListe, i);
         if (ersteListe.getLength() != 1) {
-            ersteListe = mergeSort(ersteListe);
+            ersteListe = mergeSort(ersteListe, term, direction);
         }
         if (zweiteListe.getLength() != 1) {
-            zweiteListe = mergeSort(zweiteListe);
+            zweiteListe = mergeSort(zweiteListe, term, direction);
         }
 
         ersteListe.toFirst();
@@ -263,45 +262,120 @@ public class Main {
         List<Schueler> newList = new List<Schueler>();
         List<Schueler> emptyList = new List<Schueler>();
 
-        while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
+        if (direction.equals("up")) {
+            if (term.equals("Sprung")) {
+                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
 
-            if (ersteListe.getContent().getSprung() > zweiteListe.getContent().getSprung()) {
-                newList.append(zweiteListe.getContent());
-                zweiteListe.remove();
-            } else if (ersteListe.getContent().getSprung() < zweiteListe.getContent().getSprung()) {
-                newList.append(ersteListe.getContent());
-                ersteListe.remove();
+                    if (ersteListe.getContent().getSprung() > zweiteListe.getContent().getSprung()) {
+                        newList.append(zweiteListe.getContent());
+                        zweiteListe.remove();
+                    } else if (ersteListe.getContent().getSprung() < zweiteListe.getContent().getSprung()) {
+                        newList.append(ersteListe.getContent());
+                        ersteListe.remove();
+                    }
+                    if (ersteListe.isEmpty()) {
+                        newList.concat(zweiteListe);
+                        ersteListe = emptyList;
+                    } else if (zweiteListe.isEmpty()) {
+                        newList.concat(ersteListe);
+                        zweiteListe = emptyList;
+                    }
+                }
+            } else if (term.equals("Wurf")) {
+                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
+
+                    if (ersteListe.getContent().getWurf() > zweiteListe.getContent().getWurf()) {
+                        newList.append(zweiteListe.getContent());
+                        zweiteListe.remove();
+                    } else if (ersteListe.getContent().getWurf() < zweiteListe.getContent().getWurf()) {
+                        newList.append(ersteListe.getContent());
+                        ersteListe.remove();
+                    }
+                    if (ersteListe.isEmpty()) {
+                        newList.concat(zweiteListe);
+                        ersteListe = emptyList;
+                    } else if (zweiteListe.isEmpty()) {
+                        newList.concat(ersteListe);
+                        zweiteListe = emptyList;
+                    }
+                }
+            } else if (term.equals("Lauf")) {
+                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
+
+                    if (ersteListe.getContent().getLauf() > zweiteListe.getContent().getLauf()) {
+                        newList.append(zweiteListe.getContent());
+                        zweiteListe.remove();
+                    } else if (ersteListe.getContent().getLauf() < zweiteListe.getContent().getLauf()) {
+                        newList.append(ersteListe.getContent());
+                        ersteListe.remove();
+                    }
+                    if (ersteListe.isEmpty()) {
+                        newList.concat(zweiteListe);
+                        ersteListe = emptyList;
+                    } else if (zweiteListe.isEmpty()) {
+                        newList.concat(ersteListe);
+                        zweiteListe = emptyList;
+                    }
+                }
             }
-            if (ersteListe.isEmpty()) {
-                newList.concat(zweiteListe);
-                ersteListe = emptyList;
-            } else if (zweiteListe.isEmpty()) {
-                newList.concat(ersteListe);
-                zweiteListe = emptyList;
+        } else if (direction.equals("down")) {
+            if (term.equals("Sprung")) {
+                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
+
+                    if (ersteListe.getContent().getSprung() < zweiteListe.getContent().getSprung()) {
+                        newList.append(zweiteListe.getContent());
+                        zweiteListe.remove();
+                    } else if (ersteListe.getContent().getSprung() > zweiteListe.getContent().getSprung()) {
+                        newList.append(ersteListe.getContent());
+                        ersteListe.remove();
+                    }
+                    if (ersteListe.isEmpty()) {
+                        newList.concat(zweiteListe);
+                        ersteListe = emptyList;
+                    } else if (zweiteListe.isEmpty()) {
+                        newList.concat(ersteListe);
+                        zweiteListe = emptyList;
+                    }
+                }
+            } else if (term.equals("Wurf")) {
+                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
+
+                    if (ersteListe.getContent().getWurf() < zweiteListe.getContent().getWurf()) {
+                        newList.append(zweiteListe.getContent());
+                        zweiteListe.remove();
+                    } else if (ersteListe.getContent().getWurf() > zweiteListe.getContent().getWurf()) {
+                        newList.append(ersteListe.getContent());
+                        ersteListe.remove();
+                    }
+                    if (ersteListe.isEmpty()) {
+                        newList.concat(zweiteListe);
+                        ersteListe = emptyList;
+                    } else if (zweiteListe.isEmpty()) {
+                        newList.concat(ersteListe);
+                        zweiteListe = emptyList;
+                    }
+                }
+            } else if (term.equals("Lauf")) {
+                while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
+
+                    if (ersteListe.getContent().getLauf() < zweiteListe.getContent().getLauf()) {
+                        newList.append(zweiteListe.getContent());
+                        zweiteListe.remove();
+                    } else if (ersteListe.getContent().getLauf() > zweiteListe.getContent().getLauf()) {
+                        newList.append(ersteListe.getContent());
+                        ersteListe.remove();
+                    }
+                    if (ersteListe.isEmpty()) {
+                        newList.concat(zweiteListe);
+                        ersteListe = emptyList;
+                    } else if (zweiteListe.isEmpty()) {
+                        newList.concat(ersteListe);
+                        zweiteListe = emptyList;
+                    }
+                }
             }
         }
         return newList;
-    }
-
-    public static void logger(List<Schueler> x, List<Schueler> y, int i) {
-        System.out.println("nächste Runde");
-        System.out.println(x.getLength());
-        System.out.println(y.getLength());
-        // erste Liste:
-        System.out.println("Erste Liste:");
-        x.toFirst();
-        while (x.hasAccess()) {
-            System.out.println(x.getContent().name());
-            x.next();
-        }
-
-        System.out.println("Zweite Liste:");
-        y.toFirst();
-        while (y.hasAccess()) {
-            System.out.println(y.getContent().name());
-            y.next();
-        }
-
     }
 
     // weitere Dienste, die einiges vereinfachen!!!
