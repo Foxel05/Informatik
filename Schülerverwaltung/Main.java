@@ -288,9 +288,7 @@ public class Main
             } 
         }
         return newList;
-
-
-        }
+        
     }
 //weitere Dienste, die einiges vereinfachen!!!
     public static void selectStudentend(Schueler x){
