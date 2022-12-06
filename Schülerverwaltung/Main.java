@@ -1,21 +1,19 @@
 import java.util.*;
 
-public class Main
-{
+public class Main {
     static Scanner mS = new Scanner(System.in);
     static List<Schueler> meineListe = new List<Schueler>();
-    public static void main(String[] args)
-    {
 
-        meineListe.append(new Schueler("Simon", "Kebekus", 17, 'm', "11", 2,23, 226));
+    public static void main(String[] args) {
+
+        meineListe.append(new Schueler("Simon", "Kebekus", 17, 'm', "11", 2, 23, 226));
         meineListe.append(new Schueler("Tim", "Rix", 17, 'm', "11", 2, 3, 16));
-        meineListe.append(new Schueler("Emil", "Kirk", 17, 'm', "11", 2, 3,14));
+        meineListe.append(new Schueler("Emil", "Kirk", 17, 'm', "11", 2, 3, 14));
         meineListe.append(new Schueler("Nico", "Goehr", 16, 'm', "11", 2, 3, 12));
         meineListe.append(new Schueler("Lukas", "Rutenbeck", 15, 'm', "11", 2, 3, 13));
         meineListe.append(new Schueler("Magnus", "Temeplmann", 17, 'm', "11", 2, 3, 27));
 
-        while(true)
-        {
+        while (true) {
             Scanner mS = new Scanner(System.in);
             System.out.println();
             System.out.println("------------------------------------");
@@ -33,63 +31,68 @@ public class Main
             System.out.println();
             int eingabe = mS.nextInt();
             System.out.println();
-            System.out.println("Es wird zum Menuepunkt "+ eingabe +" gewechselt!");
+            System.out.println("Es wird zum Menuepunkt " + eingabe + " gewechselt!");
             System.out.println();
 
-
-            if      (eingabe == 1) anlegen();
-            else if (eingabe == 2) anzeigen();
-            else if (eingabe == 3) showLength();
-            else if (eingabe == 4) removeObject();
-            else if (eingabe == 5) findObject();
-            else if (eingabe == 6) collectResults();
-            else if (eingabe == 7) meineListe = mergeSort(meineListe);
-            else if (eingabe == 8) System.exit(0);
+            if (eingabe == 1)
+                anlegen();
+            else if (eingabe == 2)
+                anzeigen();
+            else if (eingabe == 3)
+                showLength();
+            else if (eingabe == 4)
+                removeObject();
+            else if (eingabe == 5)
+                findObject();
+            else if (eingabe == 6)
+                collectResults();
+            else if (eingabe == 7)
+                meineListe = mergeSort(meineListe);
+            else if (eingabe == 8)
+                System.exit(0);
         } // Ende der while Schleife
     } // Ende der main-Methode
 
-    public static void anlegen()
-    {
-
+    public static void anlegen() {
 
         System.out.println("------------------------------------");
         System.out.println("Neuen Schüler anlegen");
         System.out.println("------------------------------------");
 
-        System.out.println(); //Leerzeile
+        System.out.println(); // Leerzeile
         System.out.println("[Vorname]:");
-        System.out.println(); //Leerzeile
+        System.out.println(); // Leerzeile
         String vorname = mS.next();
 
-        System.out.println(); //Leerzeile
+        System.out.println(); // Leerzeile
         System.out.println("[Name]:");
-        System.out.println(); //Leerzeile
+        System.out.println(); // Leerzeile
         String name = mS.next();
 
-        System.out.println(); //Leerzeile
+        System.out.println(); // Leerzeile
         System.out.println("[Alter]:");
-        System.out.println(); //Leerzeile
+        System.out.println(); // Leerzeile
         int alter = mS.nextInt();
 
-        System.out.println(); //Leerzeile
+        System.out.println(); // Leerzeile
         System.out.println("[Geschlecht]:");
-        System.out.println(); //Leerzeile
+        System.out.println(); // Leerzeile
         char geschlecht = mS.next().charAt(0);
 
-        System.out.println(); //Leerzeile
+        System.out.println(); // Leerzeile
         System.out.println("[Klasse]:");
-        System.out.println(); //Leerzeile
+        System.out.println(); // Leerzeile
         String klasse = mS.next();
 
-        // Jetzt stehen auf den Variablen name, vorname, alter, geschlecht und klasse die notwendigen Informationen drauf
-        Schueler neuerSchueler = new Schueler(vorname, name, alter, geschlecht, klasse, 0, 0,0 );
+        // Jetzt stehen auf den Variablen name, vorname, alter, geschlecht und klasse
+        // die notwendigen Informationen drauf
+        Schueler neuerSchueler = new Schueler(vorname, name, alter, geschlecht, klasse, 0, 0, 0);
         meineListe.toLast();
         meineListe.append(neuerSchueler);
 
     }
 
-    public static void anzeigen()
-    {
+    public static void anzeigen() {
 
         System.out.println("------------------------------------");
         System.out.println("Alle Schüler anzeigen");
@@ -99,37 +102,32 @@ public class Main
 
     }
 
-    public static void showLength()
-    {
+    public static void showLength() {
 
         System.out.println("------------------------------------");
         System.out.println("Länge der Liste anzeigen");
         System.out.println("------------------------------------");
 
         String description;
-        if (meineListe.getLength()> 1)
-        {
+        if (meineListe.getLength() > 1) {
             description = "Es befinden sich ";
-        }
-        else {
+        } else {
             description = "Es befindet sich ";
         }
         System.out.println(description + meineListe.getLength() + " Schüler in der Liste");
     }
 
-    public static void findObject()
-    {
+    public static void findObject() {
         System.out.println("------------------------------------");
         System.out.println("Schüler suchen");
         System.out.println("------------------------------------");
-
 
         meineListe.toFirst();
         int i = 0;
         System.out.println("Vornamen eingeben: ");
         String input = mS.next();
 
-        while (meineListe.hasAccess()){
+        while (meineListe.hasAccess()) {
             if (meineListe.getContent().vorname().equals(input)) {
                 System.out.println("Schüler (" + i + ") gefunden mit diesem Vornamen");
                 System.out.println("[Vorname]: " + meineListe.getContent().vorname());
@@ -152,9 +150,7 @@ public class Main
         System.out.println("Vornamen eingeben: ");
         String input = mS.next();
 
-
         for (int i = 0; i < meineListe.getLength(); i++) {
-
 
             if (!meineListe.getContent().vorname().equals(input)) {
                 meineListe.next();
@@ -163,12 +159,10 @@ public class Main
                 meineListe.remove();
             }
 
-
         }
     }
 
-    public static void collectResults()
-    {
+    public static void collectResults() {
         System.out.println("------------------------------------");
         System.out.println("Schüler Werte angeben:");
         System.out.println("------------------------------------");
@@ -181,9 +175,9 @@ public class Main
         tempStudent = selectStudent();
         collectResults_selectSport(tempStudent);
     }
-        
-    public static void collectResults_selectSport(Schueler tempStudent){
-        //Sportart auswählen
+
+    public static void collectResults_selectSport(Schueler tempStudent) {
+        // Sportart auswählen
         System.out.println("Werte in Sportart angeben:");
         System.out.println("---------------------------");
         System.out.print("1. Sprung");
@@ -194,20 +188,18 @@ public class Main
         int auswahl = mS.nextInt();
 
         double angabe;
-        if (auswahl == 1){
-            //Sprung
+        if (auswahl == 1) {
+            // Sprung
             System.out.println("Sprung an geben:");
             angabe = mS.nextDouble();
             tempStudent.setSprung(angabe);
-        }
-        else if (auswahl == 2){
-            //Wurf
+        } else if (auswahl == 2) {
+            // Wurf
             System.out.println("Wurf an geben:");
             angabe = mS.nextDouble();
             tempStudent.setWurf(angabe);
-        }
-        else if (auswahl == 3 ){
-            //Lauf
+        } else if (auswahl == 3) {
+            // Lauf
             System.out.println("Lauf an geben:");
             angabe = mS.nextDouble();
             tempStudent.setLauf(angabe);
@@ -216,51 +208,52 @@ public class Main
         collectResults_Save(tempStudent);
     }
 
-    public static void collectResults_Save(Schueler tempStudent){
+    public static void collectResults_Save(Schueler tempStudent) {
         System.out.println();
-        System.out.println("Anderen Schülerauswählen [s], andere Sportart wählen [w], beenden (und speichern) [e], beenden (nicht speichern) [f]");
+        System.out.println(
+                "Anderen Schülerauswählen [s], andere Sportart wählen [w], beenden (und speichern) [e], beenden (nicht speichern) [f]");
         char tempchar = mS.next().charAt(0);
         System.out.println(tempchar);
 
-        if (tempchar != 's' && tempchar != 'w' && tempchar != 'e' && tempchar != 'f'){
+        if (tempchar != 's' && tempchar != 'w' && tempchar != 'e' && tempchar != 'f') {
             System.out.println("Falsches Zeichen!");
             collectResults_Save(tempStudent);
-        }
-        else if (tempchar == 's') {
+        } else if (tempchar == 's') {
             selectStudentend(tempStudent);
             collectResults_selectStudent(tempStudent);
-        }
-        else if (tempchar == 'w') {
+        } else if (tempchar == 'w') {
             collectResults_selectSport(tempStudent);
-        }
-        else if (tempchar == 'e') {
+        } else if (tempchar == 'e') {
             selectStudentend(tempStudent);
         }
     }
 
-    public static List<Schueler> mergeSort(List<Schueler> givenList){
-        if (givenList.getLength() == 1) return givenList; //Wenn die Liste nur einen Shüler beinhaltet, zurück (da man schlecht nur eine Sache sortieren kann)
+    public static List<Schueler> mergeSort(List<Schueler> givenList) {
+        if (givenList.getLength() == 1)
+            return givenList; // Wenn die Liste nur einen Shüler beinhaltet, zurück (da man schlecht nur eine
+        // Sache sortieren kann)
 
         givenList.toFirst();
-        
+
         int i = 0;
         List<Schueler> ersteListe = new List<Schueler>();
         List<Schueler> zweiteListe = new List<Schueler>();
 
-        while (i < ((givenList.getLength() + 1) / 2)){
+        while (i < (givenList.getLength() / 2)) {
             i++;
             ersteListe.append(givenList.getContent());
             givenList.next();
         }
-        while (givenList.hasAccess()){
+        while (givenList.hasAccess()) {
             zweiteListe.append(givenList.getContent());
             givenList.next();
         }
 
-        if (ersteListe.getLength() > 1){
+        logger(ersteListe, zweiteListe, i);
+        if (ersteListe.getLength() != 1) {
             ersteListe = mergeSort(ersteListe);
         }
-        else if (zweiteListe.getLength() > 1){
+        if (zweiteListe.getLength() != 1) {
             zweiteListe = mergeSort(zweiteListe);
         }
 
@@ -268,67 +261,83 @@ public class Main
         zweiteListe.toFirst();
 
         List<Schueler> newList = new List<Schueler>();
-        
-        while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()){
-            if (ersteListe.isEmpty()){
+        List<Schueler> emptyList = new List<Schueler>();
+
+        while (!ersteListe.isEmpty() && !zweiteListe.isEmpty()) {
+
+            if (ersteListe.getContent().getSprung() > zweiteListe.getContent().getSprung()) {
                 newList.append(zweiteListe.getContent());
                 zweiteListe.remove();
-            }
-            else if (zweiteListe.isEmpty()){
+            } else if (ersteListe.getContent().getSprung() < zweiteListe.getContent().getSprung()) {
                 newList.append(ersteListe.getContent());
                 ersteListe.remove();
             }
-            else if (ersteListe.getContent().getSprung() == zweiteListe.getContent().getSprung()){
-                newList.append(ersteListe.getContent());
-                ersteListe.remove();
-                newList.append(zweiteListe.getContent());
-                zweiteListe.remove();
+            if (ersteListe.isEmpty()) {
+                newList.concat(zweiteListe);
+                ersteListe = emptyList;
+            } else if (zweiteListe.isEmpty()) {
+                newList.concat(ersteListe);
+                zweiteListe = emptyList;
             }
-            else if (ersteListe.getContent().getSprung() > zweiteListe.getContent().getSprung()){
-                newList.append(zweiteListe.getContent());
-                zweiteListe.remove();
-            }
-            else if (ersteListe.getContent().getSprung() < zweiteListe.getContent().getSprung()){
-                newList.append(ersteListe.getContent());
-                ersteListe.remove();
-            } 
         }
         return newList;
+    }
+
+    public static void logger(List<Schueler> x, List<Schueler> y, int i) {
+        System.out.println("nächste Runde");
+        System.out.println(x.getLength());
+        System.out.println(y.getLength());
+        // erste Liste:
+        System.out.println("Erste Liste:");
+        x.toFirst();
+        while (x.hasAccess()) {
+            System.out.println(x.getContent().name());
+            x.next();
+        }
+
+        System.out.println("Zweite Liste:");
+        y.toFirst();
+        while (y.hasAccess()) {
+            System.out.println(y.getContent().name());
+            y.next();
+        }
 
     }
-//weitere Dienste, die einiges vereinfachen!!!
-    public static void selectStudentend(Schueler x){
+
+    // weitere Dienste, die einiges vereinfachen!!!
+    public static void selectStudentend(Schueler x) {
         meineListe.toFirst();
-        while (meineListe.getContent() != x){
+        while (meineListe.getContent() != x) {
             meineListe.next();
         }
         meineListe.setContent(x);
     }
 
-    public static Schueler selectStudent(){
+    public static Schueler selectStudent() {
         System.out.println("Schüler von Liste auswählen: ");
         listStudent();
         int auswahl = mS.nextInt();
         return cloneStudent(auswahl);
     }
 
-    public static void listStudent(){
+    public static void listStudent() {
         meineListe.toFirst();
         int i = 0;
 
-        while(meineListe.hasAccess()) {
+        while (meineListe.hasAccess()) {
             i++;
-            System.out.println(i + ": [Name]: " + meineListe.getContent().vorname() + " " + meineListe.getContent().name());
+            System.out.println(
+                    i + ": [Name]: " + meineListe.getContent().vorname() + " " + meineListe.getContent().name());
             meineListe.next();
         }
     }
 
-    public static Schueler cloneStudent(int auswahl){
+    public static Schueler cloneStudent(int auswahl) {
         meineListe.toFirst();
         System.out.println("Schüler (" + auswahl + ") ausgewählt!");
         int i = 0;
 
-        while(i == auswahl) {
+        while (i == auswahl) {
             i++;
             meineListe.next();
         }
