@@ -10,16 +10,16 @@ public class Schueler
     private double lauf;
     private double sprung;
 
-    public Schueler(String v, String n, int a, char g, String k, double w, double l, double s) // Parameter für das Bauunternehmen, welches mit "new Schueler(...)" den einzelnen Schüler bauen kann
+    public Schueler(String pvorname, String pname, int palter, char pgeschlecht, String pklasse, double pwurf, double plauf, double psprung) // Parameter für das Bauunternehmen, welches mit "new Schueler(...)" den einzelnen Schüler bauen kann
     {
-        name = n;
-        vorname = v;
-        alter = a;
-        geschlecht = g;
-        klasse = k;
-        wurf = w;
-        lauf = l;
-        sprung= s;
+        name = pname;
+        vorname = pvorname;
+        alter = palter;
+        geschlecht = pgeschlecht;
+        klasse = pklasse;
+        wurf = pwurf;
+        lauf = plauf;
+        sprung= psprung;
     }
 
     public String name()
