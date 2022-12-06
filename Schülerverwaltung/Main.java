@@ -37,7 +37,7 @@ public class Main {
             if (eingabe == 1)
                 anlegen();
             else if (eingabe == 2)
-                anzeigen();
+                anzeigen(meineListe);
             else if (eingabe == 3)
                 showLength();
             else if (eingabe == 4)
@@ -47,7 +47,7 @@ public class Main {
             else if (eingabe == 6)
                 collectResults();
             else if (eingabe == 7)
-                meineListe = mergeSort(meineListe, "Sprung", "down");
+                collectSortedList();
             else if (eingabe == 8)
                 System.exit(0);
         } // Ende der while Schleife
@@ -92,13 +92,13 @@ public class Main {
 
     }
 
-    public static void anzeigen() {
+    public static void anzeigen(List<Schueler> tempList) {
 
         System.out.println("------------------------------------");
         System.out.println("Alle Schüler anzeigen");
         System.out.println("------------------------------------");
 
-        listStudent();
+        listStudentfromList(tempList);
 
     }
 
@@ -172,7 +172,7 @@ public class Main {
     }
 
     public static void collectResults_selectStudent(Schueler tempStudent) {
-        tempStudent = selectStudent();
+        tempStudent = selectStudent(meineListe);
         collectResults_selectSport(tempStudent);
     }
 
@@ -219,15 +219,31 @@ public class Main {
             System.out.println("Falsches Zeichen!");
             collectResults_Save(tempStudent);
         } else if (tempchar == 's') {
-            selectStudentend(tempStudent);
+            selectStudentend(meineListe, tempStudent);
             collectResults_selectStudent(tempStudent);
         } else if (tempchar == 'w') {
             collectResults_selectSport(tempStudent);
         } else if (tempchar == 'e') {
-            selectStudentend(tempStudent);
+            selectStudentend(meineListe, tempStudent);
         }
     }
 
+    public static void collectSortedList() {
+        System.out.println("------------------------");
+        System.out.println("Liste sortieren");
+        System.out.println("------------------------");
+        System.out.println();
+        System.out.println("Sortieren nach Sprung, Lauf oder Wurf?");
+        String tempterm = mS.next();
+        System.out.println("Sortieren aufsteigend [up] oder absteigend [down]");
+        String tempdirection = mS.next();
+        System.out.println("Neue Sortierung der Schüler: ");
+        listStudentfromList(mergeSort(meineListe, tempterm, tempdirection));
+    }
+
+    // Nur noch unwichtiges!
+
+    // Weitere Dienste, die einiges vereinfachen!!!
     public static List<Schueler> mergeSort(List<Schueler> givenList, String term, String direction) {
         if (givenList.getLength() == 1)
             return givenList; // Wenn die Liste nur einen Schüler beinhaltet, zurück (da man schlecht nur eine
@@ -378,31 +394,29 @@ public class Main {
         return newList;
     }
 
-    // Weitere Dienste, die einiges vereinfachen!!!
-    public static void selectStudentend(Schueler x) {
-        meineListe.toFirst();
-        while (meineListe.getContent() != x) {
-            meineListe.next();
+    public static void selectStudentend(List<Schueler> tempList, Schueler x) {
+        tempList.toFirst();
+        while (tempList.getContent() != x) {
+            tempList.next();
         }
-        meineListe.setContent(x);
+        tempList.setContent(x);
     }
 
-    public static Schueler selectStudent() {
+    public static Schueler selectStudent(List<Schueler> tempList) {
         System.out.println("Schüler von Liste auswählen: ");
-        listStudent();
+        listStudentfromList(tempList);
         int auswahl = mS.nextInt();
         return cloneStudent(auswahl);
     }
 
-    public static void listStudent() {
-        meineListe.toFirst();
+    public static void listStudentfromList(List<Schueler> tempList) {
+        tempList.toFirst();
         int i = 0;
 
-        while (meineListe.hasAccess()) {
+        while (tempList.hasAccess()) {
             i++;
-            System.out.println(
-                    i + ": [Name]: " + meineListe.getContent().vorname() + " " + meineListe.getContent().name());
-            meineListe.next();
+            System.out.println(i + ": [Name]: " + tempList.getContent().vorname() + " " + tempList.getContent().name());
+            tempList.next();
         }
     }
 
