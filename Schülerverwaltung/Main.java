@@ -378,7 +378,7 @@ public class Main {
         return newList;
     }
 
-    // weitere Dienste, die einiges vereinfachen!!!
+    // Weitere Dienste, die einiges vereinfachen!!!
     public static void selectStudentend(Schueler x) {
         meineListe.toFirst();
         while (meineListe.getContent() != x) {
