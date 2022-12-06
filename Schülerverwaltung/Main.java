@@ -16,13 +16,14 @@ public class Main
             System.out.println("Willkommen zu der Schuelerverwaltung");
             System.out.println("------------------------------------");
             System.out.println();
-            System.out.println("[1] Schueler anlegen");
-            System.out.println("[2] Schueler anzeigen");
+            System.out.println("[1] Schüöer anlegen");
+            System.out.println("[2] Schüler anzeigen");
             System.out.println("[3] Anzahl der Schüler");
             System.out.println("[4] Schüler löschen");
             System.out.println("[5] Schüler suchen");
             System.out.println("[6] Schüler Werte angeben");
-            System.out.println("[7] Programm beenden");
+            System.out.println("[7] Schüler Werte sortieren");
+            System.out.println("[8] Programm beenden");
             System.out.println();
             int eingabe = mS.nextInt();
             System.out.println();
@@ -30,37 +31,14 @@ public class Main
             System.out.println();
 
 
-            if(eingabe == 1)
-            {
-                anlegen();
-            }
-            if(eingabe == 2)
-            {
-                anzeigen();
-            }
-            if(eingabe == 3)
-            {
-                showLength();
-            }
-
-            if(eingabe == 4)
-            {
-                removeObject();
-            }
-            if(eingabe == 5)
-            {
-                findObject();
-            }
-
-            if(eingabe== 6)
-            {
-                collectResults();
-
-            }
-            if(eingabe == 7)
-            {
-                System.exit(0);
-            }
+            if      (eingabe == 1) anlegen();
+            else if (eingabe == 2) anzeigen();
+            else if (eingabe == 3) showLength();
+            else if (eingabe == 4) removeObject();
+            else if (eingabe == 5) findObject();
+            else if (eingabe == 6) collectResults();
+            else if (eingabe == 7) mergeSort();
+            else if (eingabe == 8) System.exit(0);
         } // Ende der while Schleife
     } // Ende der main-Methode
 
@@ -251,6 +229,10 @@ public class Main
                 selectStudentend(tempStudent);
             }
         }
+        
+    }
+
+    public static void mergeSort(){
         
     }
 //weitere Dienste, die einiges vereinfachen!!!
