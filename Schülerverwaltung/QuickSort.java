@@ -27,10 +27,10 @@ public class MergeSort {
         }
 
         if (ersteListe.getLength() != 1) {
-            ersteListe = mergeSort(ersteListe, term, direction);
+            ersteListe = mergeSort(ersteListe);
         }
         if (zweiteListe.getLength() != 1) {
-            zweiteListe = mergeSort(zweiteListe, term, direction);
+            zweiteListe = mergeSort(zweiteListe);
         }
 
         ersteListe.toFirst();
