@@ -1,7 +1,3 @@
-import com.oracle.jrockit.jfr.ContentType;
-import java.io.*;
-import java.util.*;
-
 public class SchuelerCreator {
 
     static List<Schueler> meineListe = new List<Schueler>();
@@ -25,5 +21,4 @@ public class SchuelerCreator {
                     Math.random() * 12, Math.random() * 12));
         }
     }
-
 }
