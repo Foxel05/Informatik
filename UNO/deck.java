@@ -6,6 +6,7 @@ public class deck {
 
     public static void deck() {
         fillDeckwithCards();
+        mixupDeck(4);
     }
 
     public void fillDeckwithCards(){
@@ -25,11 +26,18 @@ public class deck {
         while (p!= 0){
             while (DeckOfCards.hasAccess()){
                 int i = round( 1 + Math.random() * 3 );
+                boolean firstmove = true;
                 tempDeck.toFirst();
                 while (i != 0 && DeckOfCards.hasAccess()){
-                    tempDeck.insert(DeckOfCards.getContent());
-                    if (tempDeck.length == 1) tempDeck.toFirst();
-                    DeckOfCards.remove();
+                    if (firstmove) {
+                        tempDeck.insert(DeckOfCards.getContent());
+                        firstmove = false;
+                    }
+                    else {
+                        tempDeck.next();
+                        tempDeck.insert(DeckOfCards.getContent());
+                        DeckOfCards.remove()
+                    }
                     i--;
                 }
             }
