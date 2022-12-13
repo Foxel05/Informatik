@@ -1,12 +1,33 @@
-public class InsertSort {
+public class Insertsort {
 
-    public InsertSort() {
+    public Insertsort() {
 
     }
 
-    public List<Schueler> InsertSort(List<Schueler> givenList) {
-    
-        
+    public static List<Schueler> sort(List<Schueler> givenList) {
+        List<Schueler> sortedList = new List<Schueler>();
+        givenList.toFirst();
+        while (!givenList.isEmpty()) {
+            if (sortedList.isEmpty()) {
+                sortedList.insert(givenList.getContent());
+                givenList.remove();
+            }
+            Schueler tempSchueler = givenList.getContent();
+            sortedList.toFirst();
+            while (sortedList.hasAccess() && tempSchueler != null) {
+                if (tempSchueler.getSprung() < sortedList.getContent().getSprung()) {
+                    sortedList.insert(tempSchueler);
+                    tempSchueler = null;
+                }
+                if (sortedList.getContent() == null) {
+                    sortedList.append(tempSchueler);
+                    tempSchueler = null;
+                }
+                sortedList.next();
+
+            }
+        }
+        return sortedList;
     }
 
 }

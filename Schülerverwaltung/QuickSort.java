@@ -1,37 +1,32 @@
-public class MergeSort {
+public class QuickSort {
 
-    public MergeSort() {
+    public QuickSort() {
 
     }
 
-    public List<Schueler> mergeSort(List<Schueler> givenList) {
+    public List<Schueler> sort(List<Schueler> givenList) {
         if (givenList.getLength() == 1)
             return givenList; // Wenn die Liste nur einen Schüler beinhaltet, zurück (da man schlecht nur eine
                               // Sache sortieren kann)
-
-        Schueler tempSchueler = givenList.toLast().getContent();
+        givenList.toLast();
+        Schueler tempSchueler = givenList.getContent();
 
         givenList.toFirst();
 
-        int i = 0;
         List<Schueler> ersteListe = new List<Schueler>();
         List<Schueler> zweiteListe = new List<Schueler>();
 
         while (givenList.hasAccess()) {
-            if (givenList.getContent().getSprung() < tempSchueler.getSprung()){
+            if (givenList.getContent().getSprung() < tempSchueler.getSprung()) {
                 ersteListe.append(givenList.getContent());
-            } else if (givenList.getContent().getSprung() > tempSchueler.getSprung()){
+            } else if (givenList.getContent().getSprung() > tempSchueler.getSprung()) {
                 zweiteListe.append(givenList.getContent());
             }
             givenList.next();
         }
 
-        if (ersteListe.getLength() != 1) {
-            ersteListe = mergeSort(ersteListe);
-        }
-        if (zweiteListe.getLength() != 1) {
-            zweiteListe = mergeSort(zweiteListe);
-        }
+        ersteListe = sort(ersteListe);
+        zweiteListe = sort(zweiteListe);
 
         ersteListe.toFirst();
         zweiteListe.toFirst();

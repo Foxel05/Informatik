@@ -2,14 +2,14 @@ import java.util.*;
 
 public class deck {
 
-    List<card> DeckOfCards = new List<card>;
+    static List<card> DeckOfCards = new List<card>;
 
     public static void deck() {
         fillDeckwithCards();
         mixupDeck(4);
     }
 
-    public void fillDeckwithCards(){
+    public static void fillDeckwithCards(){
         DeckOfCards = new List<card>;
         // red [r], blue [b], green [g], yellow [y]
         String[] colours = {"red", "blue", "green", "yellow"};
@@ -20,15 +20,15 @@ public class deck {
         }
     }
 
-    public void mixupDeck(int p){
+    public static void mixupDeck(int p){
         List<card> tempDeck = new List<card>;
         DeckOfCards.toFirst();
         while (p!= 0){
             while (DeckOfCards.hasAccess()){
-                int i = round( 1 + Math.random() * 3 );
+                int i = 4;
                 boolean firstmove = true;
                 tempDeck.toFirst();
-                while (i != 0 && DeckOfCards.hasAccess()){
+                while (i >= 0 && DeckOfCards.hasAccess()){
                     if (firstmove) {
                         tempDeck.insert(DeckOfCards.getContent());
                         firstmove = false;

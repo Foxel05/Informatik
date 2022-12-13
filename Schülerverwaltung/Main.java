@@ -235,6 +235,6 @@ public class Main {
         System.out.println("Sortieren aufsteigend [up] oder absteigend [down]");
         String tempdirection = mS.next();
         System.out.println("Neue Sortierung der Schüler: ");
-        LH.listStudentfromList(mergeSort.mergeSort(meineListe, tempterm, tempdirection));
+        LH.listStudentfromList(mergeSort.sort(meineListe, tempterm, tempdirection));
     }
 }

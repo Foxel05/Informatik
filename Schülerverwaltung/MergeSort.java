@@ -4,7 +4,7 @@ public class MergeSort {
 
     }
 
-    public List<Schueler> mergeSort(List<Schueler> givenList, String term, String direction) {
+    public List<Schueler> sort(List<Schueler> givenList, String term, String direction) {
         if (givenList.getLength() == 1)
             return givenList; // Wenn die Liste nur einen Schüler beinhaltet, zurück (da man schlecht nur eine
                               // Sache sortieren kann)
@@ -26,10 +26,10 @@ public class MergeSort {
         }
 
         if (ersteListe.getLength() != 1) {
-            ersteListe = mergeSort(ersteListe, term, direction);
+            ersteListe = sort(ersteListe, term, direction);
         }
         if (zweiteListe.getLength() != 1) {
-            zweiteListe = mergeSort(zweiteListe, term, direction);
+            zweiteListe = sort(zweiteListe, term, direction);
         }
 
         ersteListe.toFirst();
