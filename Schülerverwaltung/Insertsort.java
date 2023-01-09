@@ -9,7 +9,7 @@ public class Insertsort {
         givenList.toFirst();
         while (!givenList.isEmpty()) {
             if (sortedList.isEmpty()) {
-                sortedList.insert(givenList.getContent());
+                sortedList.append(givenList.getContent());
                 givenList.remove();
             }
             Schueler tempSchueler = givenList.getContent();
