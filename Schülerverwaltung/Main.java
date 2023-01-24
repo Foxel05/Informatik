@@ -7,6 +7,7 @@ public class Main {
     static ListHandler LH = new ListHandler();
     static SchuelerCreator SC = new SchuelerCreator(meineListe, 100);
 
+    // lol
     public static void main(String[] args) {
 
         while (true) {
