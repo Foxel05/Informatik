@@ -6,7 +6,7 @@ public class Bubblesort {
 
     public static List<Schueler> sort(List<Schueler> givenList) {
         Schueler copyedschueler = null;
-        int i = givenList.length - 1;
+        int i = givenList.length() - 1;
         while (i != 0) {
             givenList.toFirst();
             while (givenList.hasAccess()) {

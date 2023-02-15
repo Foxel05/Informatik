@@ -54,4 +54,41 @@ public class QuickSort {
         return newList;
     }
 
+    public List<Schueler> sort2(List<Schueler> givenList) {
+        givenList.toFirst();
+        if (givenList.length() > 3) {
+            Schueler Pivot = givenList.getContent();
+            givenList.remove();
+
+            List<Schueler> vorPivotListe = new List<Schueler>;
+            List<Schueler> nachPivotListe = new List<Schueler>;
+
+            while (!givenList.isEmpty()) {
+                if (givenList.getContent().getSprung() < Pivot.getSprung() ) {
+                    vorPivotListe.append(givenList.getContent());
+                }
+                else {
+                    nachPivotListe.append(givenList.getContent());
+                }
+                givenList.remove();
+            }
+            vorPivotListe.append(Pivot);
+            vorPivotListe.concat(nachPivotListe);
+            return vorPivotListe;
+        }
+        else {
+            Schueler ZwischenGespeicherterSchüler = givenList.getContent();
+            givenList.next();
+            if (ZwischenGespeicherterSchüler == null || givenList.getPrevious() == ZwischenGespeicherterSchüler) {
+                return givenList;
+            }
+            else {
+                givenList.toFirst();
+                while (givenList.getContent() != ZwischenGespeicherterSchüler) givenList.next();
+                givenList.remove();
+                givenList.append(ZwischenGespeicherterSchüler);
+            }
+        }
+    }
+
 }
