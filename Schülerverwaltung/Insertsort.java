@@ -12,15 +12,17 @@ public class Insertsort {
                 sortedList.append(givenList.getContent());
                 givenList.remove();
             }
-            Schueler tempSchueler = givenList.getContent();
             sortedList.toFirst();
-            while (sortedList.hasAccess() && tempSchueler != null) {
-                if (tempSchueler.getSprung() < sortedList.getContent().getSprung()) {
-                    sortedList.insert(tempSchueler);
-                    tempSchueler = null;
-                }
+            while (sortedList.hasAccess()) {
+
+                Schueler tempSchueler = givenList.getContent();
+                givenList.remove();
                 if (sortedList.getContent() == null) {
                     sortedList.append(tempSchueler);
+                    tempSchueler = null;
+                }
+                else if (tempSchueler.getSprung() < sortedList.getContent().getSprung()) {
+                    sortedList.insert(tempSchueler);
                     tempSchueler = null;
                 }
                 sortedList.next();
