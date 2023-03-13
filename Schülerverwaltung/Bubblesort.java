@@ -12,7 +12,7 @@ public class Bubblesort {
             while (givenList.hasAccess()) {
                 copyedschueler = givenList.getContent();
                 givenList.remove();
-                if (givenList.getContent().getSprung() > copyedschueler.getSprung()) {
+                if (givenList.getContent().getSprung() > copyedschueler.getSprung() && givenList.getContent() != null) {
                     givenList.insert(copyedschueler);
                 } else if (givenList.getContent().getSprung() < copyedschueler.getSprung()) {
                     givenList.insert(givenList.getContent());
